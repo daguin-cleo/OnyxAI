@@ -75,7 +75,7 @@ $(function(){
 
     // Création des diagonales des carrés
     var htmlSquareCenterLayer = "<div class=\"board-layer fldc\">";
-    for (var i = 0; i < 2; i++)
+    for (var i = 0; i < 11; i++)
     {
         htmlSquareCenterLayer += "<div class=\"board-squareCenter-row\">";
 
