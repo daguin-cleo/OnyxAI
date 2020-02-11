@@ -1,0 +1,210 @@
+
+body
+{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.board
+{
+    margin: 50px 0;
+    width: 600px;
+    height: 600px;
+    background: #daa432;
+    position: relative;
+    display: flex;
+}
+
+/* ------------------ */
+/* -- Layers -------- */
+/* ------------------ */
+.board-layer
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    padding: 20px;
+}
+.board-layer.fldc
+{
+    flex-direction: column;
+    left: -6px;
+    top: 6px;
+}
+
+/* -------------------- */
+/* -- Columns Layers -- */
+/* -------------------- */
+.board-column
+{
+    display: flex;
+    flex-direction: column;
+    margin-right: 48px;
+}
+.board-column:nth-child(2n)
+{
+    margin-top: 12px;
+    margin-right: 48px;
+}
+.board-verticalLine
+{
+    width: 1px;
+    height: 50px;
+    background: black;
+    margin-bottom: -1px;
+}
+.board-verticalLine:nth-child(2n)
+{
+    transform: rotate(15deg);
+}
+.board-verticalLine:nth-child(2n+1)
+{
+    transform: rotate(-15deg);
+}
+
+/* -------------------- */
+/* -- Rows Layers ----- */
+/* -------------------- */
+.board-row
+{
+    display: flex;
+    margin-bottom: 48px;
+}
+.board-row:nth-child(2n)
+{
+    margin-left: 12px;
+}
+.board-horizonalLine
+{
+    width: 50px;
+    height: 1px;
+    background: black;
+    margin-right: -1px;
+}
+.board-horizonalLine:nth-child(2n)
+{
+    transform: rotate(-15deg);
+}
+.board-horizonalLine:nth-child(2n+1)
+{
+    transform: rotate(15deg);
+}
+
+/* -------------------------- */
+/* -- Diamond center layer -- */
+/* -------------------------- */
+.board-diamondCenter-row
+{
+    display: flex;
+    margin-bottom: 48px;
+    margin-left: 55px;
+}
+.board-diamondCenter-row.first
+{
+    margin-bottom: 25px;
+    margin-left: 0;
+}
+.board-diamondCenter-row:nth-child(2n)
+{
+    margin-left: 6px;
+}
+.board-diamondCenter-line
+{
+    width: 50px;
+    height: 1px;
+    background: black;
+    transform: rotate(-45deg);
+    margin-right: 48px;
+    flex-shrink: 0;
+}
+.board-diamondCenter-row:nth-child(2n+1) .board-diamondCenter-line
+{
+    width: 51px;
+    margin-right: 47px;
+    transform: rotate(46deg);
+}
+
+
+/* ------------------------- */
+/* -- Square center layer -- */
+/* ------------------------- */
+.board-squareCenter-row
+{
+    display: flex;
+    margin-top: 25px;
+    margin-left: 45px;
+    margin-bottom: 22px;
+}
+.board-squareCenter-row:nth-child(2n)
+{
+    margin-left: -5px;
+    margin-bottom: 23px;
+}
+.board-squareCenter-line
+{
+    width: 70px;
+    height: 1px;
+    background: cyan;
+    transform: rotate(30deg);
+    flex-shrink: 0;
+}
+.board-squareCenter-line:nth-child(2n)
+{
+    margin-left: -71px;
+    margin-right: 29px;
+    transform: rotate(-60deg);
+}
+.board-squareCenter-row:nth-child(2n) .board-squareCenter-line
+{
+    background: crimson;
+}
+.board-squareCenter-row:nth-child(2n) .board-squareCenter-line
+{
+    transform: rotate(60deg);
+}
+.board-squareCenter-row:nth-child(2n) .board-squareCenter-line:nth-child(2n)
+{
+    transform: rotate(-30deg);
+    margin-left: -69px;
+    margin-right: 27px;
+}
+
+
+/* ------------------------ */
+/* -- Square color layer -- */
+/* ------------------------ */
+.board-squareColor-row
+{
+    display: flex;
+    margin-left: 57px;
+    margin-bottom: 1px;
+    flex-shrink: 0;
+}
+.board-squareColor-row:nth-child(2n)
+{
+    margin-left: 7px;
+    margin-bottom: 0;
+}
+.board-squareColor-row:nth-child(3n)
+{
+    margin-bottom: 0;
+}
+.board-squareColor-square
+{
+    width: 50px;
+    height: 50px;
+    background: #c79223;
+    opacity: 0.5;
+    transform: rotate(-15deg);
+    margin-right: 50px;
+    flex-shrink: 0;
+}
+.board-squareColor-row:nth-child(2n) .board-squareColor-square
+{
+    transform: rotate(15deg);
+}
