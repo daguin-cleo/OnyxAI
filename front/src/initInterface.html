@@ -2,26 +2,26 @@
 <html>
 	<head>
         <link rel="stylesheet" href="index.css">
-        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     </head>
 	<body>
 		<div id="menu">
 			<h1>
-			{{ message }}
+				Onyx Board Game
 			</h1>
 		</div>
 		<div id="selection">
-			<div id="genrePartie">
-				<h2>{{ mes1 }}</h2>
-				<button v-on:click="human">1 vs 1</button>
-				<button v-on:click="ia">1 vs IA</button>
+			<div id="lancerPartie">
+				<h2>Nouvelle partie</h2>
+				<button onclick="JavaScript:human()">1 vs 1</button>
+				<button onclick="ia">1 vs IA</button>
 			</div>	
-			<div id="genrePartie">
-				<h2>{{ mes2 }}</h2>
+			<div id="rejoindrePartie">
+				<h2>Rejoindre une partie existante</h2>
 				<input type="number" id="idPartie" min="1000" max="9999">
-				<button v-on:click="getPartie">Rejoindre</button>
+				<button onclick="getPartie">Rejoindre</button>
 			</div>
 		</div>
-		<script src="index.js"></script>
 	</body>
+	<script src="Accueil.js"></script>
 </html>
+
