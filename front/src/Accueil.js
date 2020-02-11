@@ -21,9 +21,7 @@ function human() {
     //mySocket.send(JSON.stringify(msg));
     //TODO charger l'url de la page d'attente
     var getUrl = window.location;
-    var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1]
-        + "/" + getUrl.pathname.split('/')[2] + "/" + getUrl.pathname.split('/')[3]
-        + "/" + getUrl.pathname.split('/')[4] + "/";
+    var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('src/')[0] + "src/";
     console.log(baseUrl);
     document.location.href= baseUrl + "waitingId.html?id=" + id;
 
