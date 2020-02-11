@@ -9,11 +9,7 @@ h1,h2,p{
 	color: #303030;
 }
 
-#selection{
-	padding-top: 10px;
-}
-
-#genrePartie{
+#lancerPartie, #rejoindrePartie{
 	margin: 40px;
 	text-align: center;
 }
@@ -33,7 +29,9 @@ input{
 	height: 30px;
 }
 
-p{
+#idPartieAttente {
+	display: block;
 	font-size: 40px;
 	color: #75B9BE;
+	text-align: center;
 }
