@@ -95,4 +95,28 @@ $(function(){
 
     // Ajout du code à l'intérieur de la balise boardGame
     boardGame.append(htmlSquareCenterLayer);
+
+
+    // Ajout des carrés de couleur
+    var htmlSquareColorLayer = "<div class=\"board-layer fldc color\">";
+    for (var i = 0; i < 11; i++)
+    {
+        htmlSquareColorLayer += "<div class=\"board-squareColor-row\">";
+
+        var nbCarres = 6;
+        if (i%2 === 0)
+            nbCarres = 5;
+
+        for (var j = 0; j < nbCarres; j++)
+        {
+            htmlSquareColorLayer += "<div class=\"board-squareColor-square\"></div>";
+        }
+        htmlSquareColorLayer += "</div>";
+    }
+
+    htmlSquareColorLayer += "</div>";
+
+    // Ajout du code à l'intérieur de la balise boardGame
+    boardGame.append(htmlSquareColorLayer);
+
 });
