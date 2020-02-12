@@ -5,18 +5,9 @@
 
 // Nombre de carré sur une ligne : pair 6, impair 5
 
-var columnsCoord = [], rowsCoord = [], coords = [];
 
-var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"];
-
-for (var i = 0; i < 12; i++)
-{
-    columnsCoord[letters[i]] = 49*i;
-    rowsCoord[i] = 49*i;
-}
-
-console.log(columnsCoord);
-console.log(rowsCoord);
+var columns = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"];
+var rows = ["12", "11", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1"];
 
 $(function(){
 
@@ -133,55 +124,80 @@ $(function(){
     boardGame.append(htmlSquareColorLayer);
 
 
+    // Ajout des pierres
+    var htmlStoneLayer = "<div class=\"board-layer fldc stone\">";
+
+    var indexRows = 0;
+    var indexColumns = 0;
+    for (var i = 0; i < 6; i++)
+    {
+        // Ligne sans offset
+        htmlStoneLayer += "<div class=\"boardGame-stones-row\">";
+        for (var j = 0; j < 12; j++)
+        {
+            htmlStoneLayer += "<div class=\"boardGame-stone\" id=\""+ rows[indexRows] + columns[j] +"\"></div>";
+        }
+        htmlStoneLayer += "</div>";
+
+        // Ligne square
+        htmlStoneLayer += "<div class=\"boardGame-stones-row squareCenter\">";
+        for (var j = 0; j < 5; j++)
+        {
+            indexColumns = 0;
+            htmlStoneLayer += "<div class=\"boardGame-stone\" id=\""+ rows[indexRows] + rows[indexRows+1] + columns[indexColumns] + columns[indexColumns+1] +"\"></div>";
+            indexColumns++;
+        }
+        htmlStoneLayer += "</div>";
+
+        indexRows++;
+
+        // Ligne sans offset
+        htmlStoneLayer += "<div class=\"boardGame-stones-row offset\">";
+        for (var j = 0; j < 12; j++)
+        {
+            htmlStoneLayer += "<div class=\"boardGame-stone\" id=\""+ rows[indexRows] + columns[j] +"\"></div>";
+        }
+        htmlStoneLayer += "</div>";
+
+        if (i < 5)
+        {
+            // Ligne square
+            htmlStoneLayer += "<div class=\"boardGame-stones-row squareCenter no-offset\">";
+            for (var j = 0; j < 6; j++)
+            {
+                indexColumns = 0;
+                htmlStoneLayer += "<div class=\"boardGame-stone\" id=\""+ rows[indexRows] + rows[indexRows+1] + columns[indexColumns] + columns[indexColumns+1] +"\"></div>";
+                indexColumns++;
+            }
+            htmlStoneLayer += "</div>";
+        }
+
+        indexRows++;
+
+    }
+
+    htmlStoneLayer += "</div>";
+
+    // Ajout du code à l'intérieur de la balise boardGame
+    boardGame.append(htmlStoneLayer);
+
+
     // ------------------------------------------------ //
     // -- Gestion des clics --------------------------- //
     // ------------------------------------------------ //
 
-    boardGame.click(function (e) {
-        var posX = Math.round(e.pageX - $(this).position().left);
-        var posY = Math.round(e.pageY - $(this).position().top);
-        console.log(posX + "," + posY);
+    $(".boardGame-stone").click(function (e) {
+        $(this).addClass("active");
+        $(this).css({"cursor" : "normal"});
 
-        calcCoordFromPosition(posX, posY);
+        console.log($(this));
+
+        if ($(".board-layer.stone").hasClass("white"))
+            $(this).addClass("white");
+        else
+            $(this).addClass("black");
+
+        $(".board-layer.stone").toggleClass("white")
     });
 
-
-
 });
-
-
-
-function calcCoordFromPosition(posX, posY)
-{
-    var initialPosX = 23, initialPosY = 74, authorizedOffset = 15;
-    var coordX = posX - initialPosX;
-    var coordY = posY - initialPosY;
-    console.log("Coordonnées : (" + coordX + ", " + coordY +")");
-
-    var coordXFinal;
-    var i = 0;
-    while (coordXFinal === undefined && i < 12)
-    {
-        var coordXExpected = rowsCoord[i];
-        if (coordX >= coordXExpected-authorizedOffset && coordX <= coordXExpected+authorizedOffset)
-        {
-            coordXFinal = i+1;
-        }
-        i++;
-    }
-
-    var coordYFinal;
-    i = 0;
-    while (coordYFinal === undefined && i < 12)
-    {
-        var coordYExpected = columnsCoord[letters[i]];
-        if (coordY >= coordYExpected-authorizedOffset && coordY <= coordYExpected+authorizedOffset)
-        {
-            coordYFinal = letters[i];
-        }
-        i++;
-    }
-
-    console.log("Coordonnées finales : (" + coordXFinal + ", " + coordYFinal + ")");
-
-}

@@ -42,6 +42,10 @@ body
 {
     z-index: 0;
 }
+.board-layer.stone
+{
+    z-index: 3;
+}
 
 /* -------------------- */
 /* -- Columns Layers -- */
@@ -204,4 +208,74 @@ body
 .board-squareColor-row:nth-child(2n) .board-squareColor-square
 {
     transform: rotate(15deg);
+}
+
+
+/* ------------------------ */
+/* -- Stones layer -------- */
+/* ------------------------ */
+.boardGame-stones-row
+{
+    display: flex;
+    margin-top: -15px;
+    margin-left: -11px;
+    margin-bottom: 8px;
+}
+.boardGame-stones-row.offset
+{
+    margin-left: 0;
+    margin-bottom: 9px;
+}
+.boardGame-stones-row.squareCenter
+{
+    margin-left: 67px;
+}
+.boardGame-stones-row.squareCenter.no-offset
+{
+    margin-left: 18px;
+}
+.boardGame-stone
+{
+    height: 26px;
+    width: 26px;
+    background: black;
+    border-radius: 50%;
+    margin-right: 23px;
+    flex-shrink: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+.boardGame-stone.active.white
+{
+    background: white !important;
+}
+.boardGame-stone.active.black
+{
+    background: black !important;
+}
+.boardGame-stone.active,
+.boardGame-stone.active:hover
+{
+    opacity: 1;
+}
+.board-layer.stone.white .boardGame-stone
+{
+    background: white;
+}
+.boardGame-stone:nth-child(2n)
+{
+    margin-top: 10px;
+}
+.boardGame-stones-row.squareCenter .boardGame-stone
+{
+    margin-right: 72px;
+}
+.boardGame-stones-row.squareCenter .boardGame-stone:nth-child(2n)
+{
+    margin-top: 0;
+}
+
+.boardGame-stone:hover
+{
+    opacity: 0.5;
 }
