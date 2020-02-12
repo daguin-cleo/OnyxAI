@@ -1,11 +1,8 @@
 //Back du front de la page d'accueil
 
 //TODO Mettre l'url du serveur
-//window.mySocket = new WebSocket("todo");
-
-/*mySocket.onopen = function (event) {
-    print("Server and client are connecting together !");
-};*/
+var urlSocket = "ws://localhost:8989/room/";
+var serv, id;
 
 //TODO function human et ia pour les onclick
 /**
@@ -13,18 +10,28 @@
  */
 function human() {
     //Création de l'id de la partie
-    var id = randomIntFromInterval(1000, 9999);
-    var msg = {
-        text: id
+    id = randomIntFromInterval(1000, 9999);
+    //On créer la webSocket avec le nouvel id
+    urlSocket += id;
+    document.getElementById("idPartieAttente").textContent = id;
+    $("#selection").hide();
+    $("#waitingId").show();
+    serv = new Serveur(urlSocket);
+    sessionStorage.setItem('mySocket', serv);
+    serv.waitOpen();
+    Serveur.getInstance().socket.onmessage = function (event) {
+        console.log(event.data);
+        if(event.data == "$ AWAITING") {
+            //TODO charger l'url de la page d'attente
+            //$("#selection").hide();
+            //$("#waitingId").show();
+        }
     }
-    //TODO On envoie l'id au serveur
-    //mySocket.send(JSON.stringify(msg));
-    //TODO charger l'url de la page d'attente
-    var getUrl = window.location;
-    var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('src/')[0] + "src/";
-    console.log(baseUrl);
-    document.location.href= baseUrl + "waitingId.html?id=" + id;
 
+}
+
+var getId = function () {
+    return id;
 }
 
 /**
