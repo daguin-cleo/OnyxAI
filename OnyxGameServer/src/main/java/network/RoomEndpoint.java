@@ -37,25 +37,25 @@ public class RoomEndpoint {
         if(optRoom.isPresent()) {
             Triplet<String, Session, Session> room = optRoom.get();
             if(room.getValue2() != null) {
-                session.getBasicRemote().sendText(OTPCommand.ERR_ROOM_FULL);
+                sendTextToSession(session, OTPCommand.ERR_ROOM_FULL);
             }
             else {
                 Triplet<String, Session, Session> fullRoom = room.setAt2(session);
                 rooms.remove(room);
                 rooms.add(fullRoom);
-                session.getBasicRemote().sendText(OTPCommand.INFO_ROOM_JOINED);
+                sendTextToSession(session, OTPCommand.INFO_ROOM_JOINED);
                 broadcast(fullRoom, OTPCommand.COMMAND_START);
 
-                fullRoom.getValue1().getBasicRemote().sendText(OTPCommand.COMMAND_READY);
-                fullRoom.getValue2().getBasicRemote().sendText(OTPCommand.COMMAND_AWAITING);
+                sendTextToSession(fullRoom.getValue1(), OTPCommand.COMMAND_READY);
+                sendTextToSession(fullRoom.getValue2(), OTPCommand.COMMAND_AWAITING);
             }
         }
         else {
             Triplet<String, Session, Session> newRoom = new Triplet<>(roomId, session, null);
             rooms.add(newRoom);
             games.put(roomId, new Board());
-            session.getBasicRemote().sendText(OTPCommand.INFO_ROOM_CREATED);
-            session.getBasicRemote().sendText(OTPCommand.COMMAND_AWAITING);
+            sendTextToSession(session, OTPCommand.INFO_ROOM_CREATED);
+            sendTextToSession(session, OTPCommand.COMMAND_AWAITING);
         }
     }
 
@@ -72,7 +72,7 @@ public class RoomEndpoint {
 
         Board board = games.get(roomId);
         if(board == null) {
-            session.getBasicRemote().sendText(OTPCommand.err("Room does not exist"));
+            sendTextToSession(session, OTPCommand.err("Room does not exist"));
             return;
         }
 
@@ -93,12 +93,12 @@ public class RoomEndpoint {
 
             if(board.isFinished()) {
                 if(board.getWinner() == StoneColor.BLACK) {
-                    room.getValue1().getBasicRemote().sendText(OTPCommand.COMMAND_WIN);
-                    room.getValue2().getBasicRemote().sendText(OTPCommand.COMMAND_LOOSE);
+                    sendTextToSession(room.getValue1(), OTPCommand.COMMAND_WIN);
+                    sendTextToSession(room.getValue2(), OTPCommand.COMMAND_LOOSE);
                 }
                 else {
-                    room.getValue1().getBasicRemote().sendText(OTPCommand.COMMAND_LOOSE);
-                    room.getValue2().getBasicRemote().sendText(OTPCommand.COMMAND_WIN);
+                    sendTextToSession(room.getValue1(), OTPCommand.COMMAND_LOOSE);
+                    sendTextToSession(room.getValue2(), OTPCommand.COMMAND_WIN);
                 }
 
                 room.getValue1().close();
@@ -108,22 +108,23 @@ public class RoomEndpoint {
             }
             else {
                 if(session.equals(room.getValue1())) {
-                    room.getValue1().getBasicRemote().sendText(OTPCommand.COMMAND_AWAITING);
-                    room.getValue2().getBasicRemote().sendText(OTPCommand.COMMAND_READY);
+                    sendTextToSession(room.getValue1(), OTPCommand.COMMAND_AWAITING);
+                    sendTextToSession(room.getValue2(), OTPCommand.COMMAND_READY);
                 }
                 else {
-                    room.getValue1().getBasicRemote().sendText(OTPCommand.COMMAND_READY);
-                    room.getValue2().getBasicRemote().sendText(OTPCommand.COMMAND_AWAITING);
+                    sendTextToSession(room.getValue1(), OTPCommand.COMMAND_READY);
+                    sendTextToSession(room.getValue2(), OTPCommand.COMMAND_AWAITING);
                 }
             }
 
         } catch (Exception e) {
-            session.getBasicRemote().sendText(OTPCommand.err(e.getMessage()));
+            sendTextToSession(session, OTPCommand.err(e.getMessage()));
         }
     }
 
     @OnClose
     public void onClose(Session session) throws IOException {
+        System.out.println("onClose");
         Triplet<String, Session, Session> room = findTupleBySession(session).get();
         broadcast(room, OTPCommand.COMMAND_END);
         if(room.getValue1() != null) room.getValue1().close();
@@ -136,7 +137,7 @@ public class RoomEndpoint {
     public void onError(Session session, Throwable throwable) throws IOException {
         System.out.println("err");
         throwable.printStackTrace();
-        session.getBasicRemote().sendText(OTPCommand.err(throwable.getMessage()));
+        sendTextToSession(session, OTPCommand.err(throwable.getMessage()));
     }
 
     private static Optional<Triplet<String, Session, Session>> findTupleById(String roomId) {
@@ -153,8 +154,15 @@ public class RoomEndpoint {
     }
 
     private static void broadcast(Triplet<String, Session, Session> room, String message) throws IOException {
-        if(room.getValue1() != null) room.getValue1().getBasicRemote().sendText(message);
-        if(room.getValue2() != null) room.getValue2().getBasicRemote().sendText(message);
+        sendTextToSession(room.getValue1(), message);
+        sendTextToSession(room.getValue2(), message);
+    }
+
+    private static void sendTextToSession(Session session, String message) throws IOException {
+        try {
+            if(session != null) session.getBasicRemote().sendText(message);
+        } catch (IllegalStateException ignored) {
+        }
     }
 
 }
