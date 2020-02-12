@@ -5,6 +5,19 @@
 
 // Nombre de carré sur une ligne : pair 6, impair 5
 
+var columnsCoord = [], rowsCoord = [], coords = [];
+
+var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"];
+
+for (var i = 0; i < 12; i++)
+{
+    columnsCoord[letters[i]] = 49*i;
+    rowsCoord[i] = 49*i;
+}
+
+console.log(columnsCoord);
+console.log(rowsCoord);
+
 $(function(){
 
     var boardGame = $("#boardGame");
@@ -119,4 +132,56 @@ $(function(){
     // Ajout du code à l'intérieur de la balise boardGame
     boardGame.append(htmlSquareColorLayer);
 
+
+    // ------------------------------------------------ //
+    // -- Gestion des clics --------------------------- //
+    // ------------------------------------------------ //
+
+    boardGame.click(function (e) {
+        var posX = Math.round(e.pageX - $(this).position().left);
+        var posY = Math.round(e.pageY - $(this).position().top);
+        console.log(posX + "," + posY);
+
+        calcCoordFromPosition(posX, posY);
+    });
+
+
+
 });
+
+
+
+function calcCoordFromPosition(posX, posY)
+{
+    var initialPosX = 23, initialPosY = 74, authorizedOffset = 15;
+    var coordX = posX - initialPosX;
+    var coordY = posY - initialPosY;
+    console.log("Coordonnées : (" + coordX + ", " + coordY +")");
+
+    var coordXFinal;
+    var i = 0;
+    while (coordXFinal === undefined && i < 12)
+    {
+        var coordXExpected = rowsCoord[i];
+        if (coordX >= coordXExpected-authorizedOffset && coordX <= coordXExpected+authorizedOffset)
+        {
+            coordXFinal = i+1;
+        }
+        i++;
+    }
+
+    var coordYFinal;
+    i = 0;
+    while (coordYFinal === undefined && i < 12)
+    {
+        var coordYExpected = columnsCoord[letters[i]];
+        if (coordY >= coordYExpected-authorizedOffset && coordY <= coordYExpected+authorizedOffset)
+        {
+            coordYFinal = letters[i];
+        }
+        i++;
+    }
+
+    console.log("Coordonnées finales : (" + coordXFinal + ", " + coordYFinal + ")");
+
+}

@@ -55,7 +55,6 @@ body
 .board-column:nth-child(2n)
 {
     margin-top: 12px;
-    margin-right: 48px;
 }
 .board-verticalLine
 {
