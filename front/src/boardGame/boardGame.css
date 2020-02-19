@@ -8,6 +8,13 @@ body
     align-items: center;
 }
 
+.boardGame-container
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .board
 {
     margin: 50px 0;
@@ -39,7 +46,7 @@ body
     margin-right: 0;
     width: 600px;
     height: 30px;
-    padding: 0 20px 0 25px;
+    padding: 0 25px 0 20px;
 }
 .board-coord-bar:last-child
 {
@@ -300,6 +307,7 @@ body
 .boardGame-stone.active:hover
 {
     opacity: 1;
+    cursor: default;
 }
 .board-layer.stone.white .boardGame-stone
 {
