@@ -182,6 +182,31 @@ $(function(){
     boardGame.append(htmlStoneLayer);
 
 
+    // Ajout des coordonnées sur le côté du plateau
+    var htmlBoardCoord = "<div class=\"board-coord-bar\">";
+    for (var i = 12; i >= 1; i--)
+    {
+        htmlBoardCoord += "<div class=\"board-coord\">" + i + "</div>";
+    }
+    htmlBoardCoord += "</div>";
+
+    $("body").prepend(htmlBoardCoord);
+    $("body").append(htmlBoardCoord);
+
+
+    // Ajout des coordonnées sur le bas et haut du plateau
+    var htmlBoardCoordH = "<div class=\"board-coord-bar horizontal\">";
+    letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"];
+    for (var i = 0; i < 12; i++)
+    {
+        htmlBoardCoordH += "<div class=\"board-coord\">" + letters[i] + "</div>";
+    }
+    htmlBoardCoordH += "</div>";
+
+    boardGame.prepend(htmlBoardCoordH);
+    boardGame.append(htmlBoardCoordH);
+
+
     // ------------------------------------------------ //
     // -- Gestion des clics --------------------------- //
     // ------------------------------------------------ //

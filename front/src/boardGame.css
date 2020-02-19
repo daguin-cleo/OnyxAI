@@ -17,6 +17,48 @@ body
     /*display: flex;*/
 }
 
+.board-coord-bar
+{
+    margin-right: 6px;
+    padding: 20px 0 25px;
+    box-sizing: border-box;
+    height: 600px;
+    width: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.board-coord-bar.horizontal
+{
+    flex-direction: row;
+    position: absolute;
+    top: -30px;
+    left: 0;
+    margin-right: 0;
+    width: 600px;
+    height: 30px;
+    padding: 0 20px 0 25px;
+}
+.board-coord-bar:last-child
+{
+    margin-right: 0;
+    margin-left: 6px;
+}
+.board-coord-bar.horizontal:last-child
+{
+    bottom: -30px;
+    top: auto;
+}
+.board-coord
+{
+    color: #daa432;
+}
+.board-coord-bar.horizontal .board-coord
+{
+    color: black;
+}
+
 /* ------------------ */
 /* -- Layers -------- */
 /* ------------------ */
