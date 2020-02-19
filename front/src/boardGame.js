@@ -4,7 +4,7 @@
 // Décalage : 15px
 // Nombre de carré sur une ligne : pair 6, impair 5
 
-import "OTPProtocol";
+//import "OTPProtocol";
 
 
 var columns = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"];

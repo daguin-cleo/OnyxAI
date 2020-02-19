@@ -19,7 +19,7 @@ function human() {
     //serv.waitOpen();
     Serveur.getInstance().socket.onmessage = function (event) {
         console.log(event.data);
-        if(event.data == "$ AWAITING") {
+        if(event.data == "$AWAITING") {
             console.log("En attente");
             //TODO charger l'url de la page d'attente
             $("#selection").hide();
@@ -33,7 +33,7 @@ function human() {
 function attenteJ2() {
     mySocket = Serveur.getInstance().socket;
     mySocket.onmessage = function (event) {
-        if (event.data == "$ READY") {
+        if (event.data == "$READY") {
             console.log("Serveur ready!")
             //TODO charger la page de plateau
             $("#waitingId").hide();
@@ -69,8 +69,8 @@ function getPartie() {
         mySocket = Serveur.getInstance().socket;
         serv.waitOpen();
         mySocket.onmessage = function (event) {
-            if(event.data == "# Room joined") {
-                console.log(event.data);
+            console.log(event.data);
+            if(event.data == "#Room joined") {
                 $("#selection").hide();
                 $("#waitingId").hide();
                 $("#boardContainer").show();
