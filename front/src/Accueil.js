@@ -39,6 +39,7 @@ function attenteJ2() {
             $("#waitingId").hide();
             $("#boardGame").show();
             $("#turn").show();
+            $("#boardContainer").show();
             /*var id = document.getElementById("idPartieAttente").innerText;
             var getUrl = window.location;
             var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('src/')[0] + "src/";
@@ -72,7 +73,7 @@ function getPartie() {
                 console.log(event.data);
                 $("#selection").hide();
                 $("#waitingId").hide();
-                $("#boardGame").show();
+                $("#boardContainer").show();
             }
         }
     } else {
