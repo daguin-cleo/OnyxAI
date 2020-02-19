@@ -1,0 +1,3 @@
+[submodule "OnyxGameServer"]
+	path = OnyxGameServer
+	url = https://github.com/agicquel/OnyxGameServer
