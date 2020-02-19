@@ -11,6 +11,10 @@ var rows = ["12", "11", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1"];
 
 $(function(){
 
+    // --------------------------------------------------------- //
+    // -- CREATION DU PLATEAU DE JEU --------------------------- //
+    // --------------------------------------------------------- //
+
     var boardGame = $("#boardGame");
 
     // Création des colonnes
@@ -135,17 +139,19 @@ $(function(){
         htmlStoneLayer += "<div class=\"boardGame-stones-row\">";
         for (var j = 0; j < 12; j++)
         {
-            htmlStoneLayer += "<div class=\"boardGame-stone\" id=\""+ rows[indexRows] + columns[j] +"\"></div>";
+            var id = columns[j] + "," + rows[indexRows];
+            htmlStoneLayer += "<div class=\"boardGame-stone\" id=\""+ id +"\"></div>";
         }
         htmlStoneLayer += "</div>";
 
         // Ligne square
         htmlStoneLayer += "<div class=\"boardGame-stones-row squareCenter\">";
+        indexColumns = 1;
         for (var j = 0; j < 5; j++)
         {
-            indexColumns = 0;
-            htmlStoneLayer += "<div class=\"boardGame-stone\" id=\""+ rows[indexRows] + rows[indexRows+1] + columns[indexColumns] + columns[indexColumns+1] +"\"></div>";
-            indexColumns++;
+            var id = columns[indexColumns] + "-" + columns[indexColumns+1] + "," + rows[indexRows] + "-" + rows[indexRows+1];
+            htmlStoneLayer += "<div class=\"boardGame-stone\" id=\""+ id +"\"></div>";
+            indexColumns += 2;
         }
         htmlStoneLayer += "</div>";
 
@@ -155,7 +161,8 @@ $(function(){
         htmlStoneLayer += "<div class=\"boardGame-stones-row offset\">";
         for (var j = 0; j < 12; j++)
         {
-            htmlStoneLayer += "<div class=\"boardGame-stone\" id=\""+ rows[indexRows] + columns[j] +"\"></div>";
+            var id = columns[j] + "," + rows[indexRows];
+            htmlStoneLayer += "<div class=\"boardGame-stone\" id=\""+ id +"\"></div>";
         }
         htmlStoneLayer += "</div>";
 
@@ -163,11 +170,12 @@ $(function(){
         {
             // Ligne square
             htmlStoneLayer += "<div class=\"boardGame-stones-row squareCenter no-offset\">";
+            indexColumns = 0;
             for (var j = 0; j < 6; j++)
             {
-                indexColumns = 0;
-                htmlStoneLayer += "<div class=\"boardGame-stone\" id=\""+ rows[indexRows] + rows[indexRows+1] + columns[indexColumns] + columns[indexColumns+1] +"\"></div>";
-                indexColumns++;
+                var id = columns[indexColumns] + "-" + columns[indexColumns+1] + "," + rows[indexRows] + "-" + rows[indexRows+1];
+                htmlStoneLayer += "<div class=\"boardGame-stone\" id=\""+ id +"\"></div>";
+                indexColumns += 2;
             }
             htmlStoneLayer += "</div>";
         }
@@ -184,25 +192,27 @@ $(function(){
 
     // Ajout des coordonnées sur le côté du plateau
     var htmlBoardCoord = "<div class=\"board-coord-bar\">";
-    for (var i = 12; i >= 1; i--)
+    for (var i = 0; i < 12; i++)
     {
-        htmlBoardCoord += "<div class=\"board-coord\">" + i + "</div>";
+        htmlBoardCoord += "<div class=\"board-coord\">" + rows[i] + "</div>";
     }
     htmlBoardCoord += "</div>";
 
-    //$("body").prepend(htmlBoardCoord);
-    //$("body").append(htmlBoardCoord);
+    // Ajout du code à l'intérieur de la balise boardContainer
+    $("#boardContainer").prepend(htmlBoardCoord);
+    $("#boardContainer").append(htmlBoardCoord);
 
 
     // Ajout des coordonnées sur le bas et haut du plateau
     var htmlBoardCoordH = "<div class=\"board-coord-bar horizontal\">";
-    letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"];
+
     for (var i = 0; i < 12; i++)
     {
-        htmlBoardCoordH += "<div class=\"board-coord\">" + letters[i] + "</div>";
+        htmlBoardCoordH += "<div class=\"board-coord\">" + columns[i] + "</div>";
     }
     htmlBoardCoordH += "</div>";
 
+    // Ajout du code à l'intérieur de la balise boardGame
     boardGame.prepend(htmlBoardCoordH);
     boardGame.append(htmlBoardCoordH);
 
@@ -211,11 +221,18 @@ $(function(){
     // -- Gestion des clics --------------------------- //
     // ------------------------------------------------ //
 
-    $(".boardGame-stone").click(function (e) {
-        $(this).addClass("active");
-        $(this).css({"cursor" : "normal"});
+    $(".boardGame-stone").click(function (e)
+    {
+        if (!$(this).hasClass("active"))
+        {
+            var coord = $(this).attr("id");
+            sendCoord(coord, onResultSentCoord);
+        }
+    });
 
-        console.log($(this));
+    function onResultSentCoord(result) {
+        // WHEN OK
+        $(this).addClass("active");
 
         if ($(".board-layer.stone").hasClass("white"))
             $(this).addClass("white");
@@ -223,6 +240,7 @@ $(function(){
             $(this).addClass("black");
 
         $(".board-layer.stone").toggleClass("white")
-    });
+    }
 
 });
+
