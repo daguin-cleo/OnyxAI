@@ -1,11 +1,11 @@
-
+/*
 body
 {
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
-}
+}*/
 
 .board
 {
@@ -14,7 +14,7 @@ body
     height: 600px;
     background: #daa432;
     position: relative;
-    display: flex;
+    /*display: flex;*/
 }
 
 /* ------------------ */
