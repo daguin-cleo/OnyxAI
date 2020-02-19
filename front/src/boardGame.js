@@ -190,8 +190,8 @@ $(function(){
     }
     htmlBoardCoord += "</div>";
 
-    $("body").prepend(htmlBoardCoord);
-    $("body").append(htmlBoardCoord);
+    //$("body").prepend(htmlBoardCoord);
+    //$("body").append(htmlBoardCoord);
 
 
     // Ajout des coordonnées sur le bas et haut du plateau
