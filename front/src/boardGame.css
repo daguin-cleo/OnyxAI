@@ -3,14 +3,14 @@ body
 {
     margin: 0;
     padding: 0;
-    display: flex;
+    /*display: flex;*/
     justify-content: center;
     align-items: center;
 }
 
 .boardGame-container
 {
-    display: flex;
+    /*display: flex;*/
     justify-content: center;
     align-items: center;
 }

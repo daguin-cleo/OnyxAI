@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="UTF-8">
+		<title>Onyx BoardGame</title>
 		<link rel="stylesheet" href="Accueil.css">
 		<link rel="stylesheet" href="boardGame.css">
     </head>
@@ -27,7 +29,9 @@
 			<label id="idPartieAttente">0000</label>
 		</div>
 		<div id="turn" hidden="true">C'est ton tour !</div>
-		<div id="boardGame" hidden="true" class="board"></div>
+		<div class="boardGame-container" id="boardContainer" hidden="true">
+			<div class="board" id="boardGame"></div>
+		</div>
 	</body>
 	<script src="../lib/jQuery.js"></script>
 	<script src="Serveur.js"></script>
