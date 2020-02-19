@@ -230,16 +230,28 @@ $(function(){
         }
     });
 
-    function onResultSentCoord(result) {
-        // WHEN OK
-        $(this).addClass("active");
+    function onResultSentCoord(result)
+    {
+        result = parseOTPMessage(result);
 
-        if ($(".board-layer.stone").hasClass("white"))
-            $(this).addClass("white");
+        if (result.type === "error")
+        {
+            console.log(result);
+            // Affichage de l'erreur
+            // TODO Shake
+        }
+        // Pas d'erreurs, la pierre peut être placée
         else
-            $(this).addClass("black");
+        {
+            $(this).addClass("active");
 
-        $(".board-layer.stone").toggleClass("white")
+            if ($(".board-layer.stone").hasClass("white"))
+                $(this).addClass("white");
+            else
+                $(this).addClass("black");
+
+            $(".board-layer.stone").toggleClass("white")
+        }
     }
 
 });
