@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-        <link rel="stylesheet" href="index.css">
+		<link rel="stylesheet" href="Accueil.css">
+		<link rel="stylesheet" href="boardGame.css">
     </head>
 	<body>
 		<div id="menu">
@@ -18,17 +19,19 @@
 			<div id="rejoindrePartie">
 				<h2>Rejoindre une partie existante</h2>
 				<input type="number" id="idPartie" min="1000" max="9999">
-				<button onclick="getPartie">Rejoindre</button>
+				<button onclick="JavaScript:getPartie()">Rejoindre</button>
 			</div>
 		</div>
 		<div id="waitingId" hidden="true">
 			<h2>id partie</h2>
 			<label id="idPartieAttente">0000</label>
 		</div>
+		<div id="turn" hidden="true">C'est ton tour !</div>
+		<div id="boardGame" hidden="true" class="board"></div>
 	</body>
 	<script src="../lib/jQuery.js"></script>
 	<script src="Serveur.js"></script>
 	<script src="Accueil.js"></script>
-	<script src="CreationPartie.js"></script>
+	<script src="boardGame.js"></script>
 </html>
 

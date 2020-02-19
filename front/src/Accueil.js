@@ -14,24 +14,39 @@ function human() {
     //On créer la webSocket avec le nouvel id
     urlSocket += id;
     document.getElementById("idPartieAttente").textContent = id;
-    $("#selection").hide();
-    $("#waitingId").show();
     serv = new Serveur(urlSocket);
     sessionStorage.setItem('mySocket', serv);
-    serv.waitOpen();
+    //serv.waitOpen();
     Serveur.getInstance().socket.onmessage = function (event) {
         console.log(event.data);
         if(event.data == "$ AWAITING") {
+            console.log("En attente");
             //TODO charger l'url de la page d'attente
-            //$("#selection").hide();
-            //$("#waitingId").show();
+            $("#selection").hide();
+            $("#waitingId").show();
+            attenteJ2();
         }
     }
 
 }
 
-var getId = function () {
-    return id;
+function attenteJ2() {
+    mySocket = Serveur.getInstance().socket;
+    mySocket.onmessage = function (event) {
+        if (event.data == "$ READY") {
+            console.log("Serveur ready!")
+            //TODO charger la page de plateau
+            $("#waitingId").hide();
+            $("#boardGame").show();
+            $("#turn").show();
+            /*var id = document.getElementById("idPartieAttente").innerText;
+            var getUrl = window.location;
+            var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('src/')[0] + "src/";
+            document.location.href = baseUrl + "boardGame.html?id=" + id;*/
+        } else {
+            console.log(event.data);
+        }
+    }
 }
 
 /**
@@ -45,15 +60,26 @@ function ia() {
  * On click function pour rejoindre une partie
  */
 function getPartie() {
-    var id = document.getElementById("idPartie");
-    var msg = {
-        text: id
+    var id = document.getElementById("idPartie").value;
+    if(id !== "") {
+        urlSocket += id;
+        serv = new Serveur(urlSocket);
+        sessionStorage.setItem('mySocket', serv);
+        mySocket = Serveur.getInstance().socket;
+        serv.waitOpen();
+        mySocket.onmessage = function (event) {
+            if(event.data == "# Room joined") {
+                console.log(event.data);
+                $("#selection").hide();
+                $("#waitingId").hide();
+                $("#boardGame").show();
+            }
+        }
+    } else {
+        console.log("ID Mauvais");
     }
-    //On envoie l'id au serveur
-    mySocket.send(JSON.stringify(msg));
-    mySocket.onmessage = function (event) {
-        //TODO charger l'url de la partie
-    }
+
+
 }
 
 function randomIntFromInterval(min, max) { // min and max included
