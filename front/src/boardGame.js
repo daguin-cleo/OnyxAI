@@ -2,11 +2,13 @@
 // Longueur d'un trait : 50px
 // Nombre de points : 12
 // Décalage : 15px
-
 // Nombre de carré sur une ligne : pair 6, impair 5
+
+import "OTPProtocol";
 
 
 var columns = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"];
+
 var rows = ["12", "11", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1"];
 
 $(function(){
@@ -226,7 +228,7 @@ $(function(){
         if (!$(this).hasClass("active"))
         {
             var coord = $(this).attr("id");
-            sendCoord(coord, onResultSentCoord);
+            sendOTPMessage(coord, onResultSentCoord);
         }
     });
 
