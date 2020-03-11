@@ -16,7 +16,11 @@ h2{
 	font-size: 30px;
 }
 
-#lancerPartie, #rejoindrePartie{
+p{
+	font-size: 25px;
+}
+
+#lancerPartie, #rejoindrePartie, #waitingId{
 	margin: 40px;
 	text-align: center;
 }
