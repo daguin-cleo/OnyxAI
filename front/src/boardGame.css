@@ -6,6 +6,8 @@ body
     /*display: flex;*/
     justify-content: center;
     align-items: center;
+    --color1: #daa432;
+    --color2: #c79223;
 }
 
 .boardGame-container
@@ -20,7 +22,7 @@ body
     margin: 50px 0;
     width: 600px;
     height: 600px;
-    background: #daa432;
+    background: var(--color1);
     position: relative;
     display: flex;
 }
@@ -60,7 +62,7 @@ body
 }
 .board-coord
 {
-    color: #daa432;
+    color: var(--color1);
 }
 .board-coord-bar.horizontal .board-coord
 {
@@ -249,7 +251,7 @@ body
 {
     width: 50px;
     height: 50px;
-    background: #c79223;
+    background: var(--color2);
     opacity: 1;
     transform: rotate(-15deg);
     margin-right: 48px;
